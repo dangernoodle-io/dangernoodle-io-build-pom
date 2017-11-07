@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -26,6 +27,7 @@
 
     <!-- plugin versions -->
     <coveralls-maven-plugin.version>4.2.0</coveralls-maven-plugin.version>
+    <docker-maven-plugin.version>0.20.0</docker-maven-plugin.version>
     <jacoco-maven-plugin.version>0.7.7.201606060606</jacoco-maven-plugin.version>
     <maven-compiler.version>3.5.1</maven-compiler.version>
     <maven-failsafe.version>${maven-surefire.version}</maven-failsafe.version>
@@ -33,11 +35,12 @@
     <maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
     <maven-resources-plugin.version>3.0.1</maven-resources-plugin.version>
     <maven-scm-publish-plugin.version>1.1</maven-scm-publish-plugin.version>
+    <maven-shade-plugin.version>3.0.0</maven-shade-plugin.version>
     <maven-source.version>3.0.1</maven-source.version>
     <maven-surefire.version>2.19.1</maven-surefire.version>
 
     <!-- plugin dependency versions -->
-    <junit-platform.version>1.0.0-M2</junit-platform.version>
+    <junit-platform.version>1.0.1</junit-platform.version>
   </properties>
 
   <build>
@@ -71,7 +74,7 @@
               <exclude>Abstract*.java</exclude>
             </excludes>
             <systemPropertyVariables>
-              <org.slf4j.simpleLogger.defaultLogLevel>warn</org.slf4j.simpleLogger.defaultLogLevel>
+              <org.slf4j.simpleLogger.defaultLogLevel>off</org.slf4j.simpleLogger.defaultLogLevel>
             </systemPropertyVariables>
           </configuration>
         </plugin>
@@ -81,7 +84,7 @@
           <version>${maven-failsafe.version}</version>
           <configuration>
             <systemPropertyVariables>
-              <org.slf4j.simpleLogger.defaultLogLevel>warn</org.slf4j.simpleLogger.defaultLogLevel>
+              <org.slf4j.simpleLogger.defaultLogLevel>off</org.slf4j.simpleLogger.defaultLogLevel>
             </systemPropertyVariables>
           </configuration>
           <executions>
@@ -129,6 +132,32 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-resources-plugin</artifactId>
           <version>${maven-resources-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-shade-plugin</artifactId>
+          <version>${maven-shade-plugin.version}</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>shade</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>io.fabric8</groupId>
+          <artifactId>docker-maven-plugin</artifactId>
+          <version>${docker-maven-plugin.version}</version>
+          <executions>
+            <execution>
+              <id>package</id>
+              <phase>package</phase>
+              <goals>
+                <goal>build</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
       </plugins>
     </pluginManagement>
