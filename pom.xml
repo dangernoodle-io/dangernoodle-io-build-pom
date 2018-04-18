@@ -58,7 +58,7 @@
             <source>1.8</source>
             <target>1.8</target>
             <compilerArgs>
-              <arg>-Xlint:all</arg>
+              <arg>-Xlint:all,-processing</arg>
             </compilerArgs>
           </configuration>
         </plugin>
