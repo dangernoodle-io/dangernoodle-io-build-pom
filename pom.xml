@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -24,9 +25,13 @@
     <project.jar.name>${project.artifactId}-${project.version}.jar</project.jar.name>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+    <it.slf4j.defaultLogLevel>off</it.slf4j.defaultLogLevel>
+    <ut.slf4j.defaultLogLevel>off</ut.slf4j.defaultLogLevel>
+
     <!-- plugin versions -->
+    <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
     <coveralls-maven-plugin.version>4.2.0</coveralls-maven-plugin.version>
-    <docker-maven-plugin.version>0.20.0</docker-maven-plugin.version>
+    <docker-maven-plugin.version>0.25.2</docker-maven-plugin.version>
     <jacoco-maven-plugin.version>0.7.7.201606060606</jacoco-maven-plugin.version>
     <maven-compiler.version>3.5.1</maven-compiler.version>
     <maven-failsafe.version>${maven-surefire.version}</maven-failsafe.version>
@@ -36,10 +41,10 @@
     <maven-scm-publish-plugin.version>1.1</maven-scm-publish-plugin.version>
     <maven-shade-plugin.version>3.0.0</maven-shade-plugin.version>
     <maven-source.version>3.0.1</maven-source.version>
-    <maven-surefire.version>2.19.1</maven-surefire.version>
+    <maven-surefire.version>2.21.0</maven-surefire.version>
 
     <!-- plugin dependency versions -->
-    <junit-platform.version>1.0.1</junit-platform.version>
+    <junit-platform.version>1.2.0-M1</junit-platform.version>
   </properties>
 
   <build>
@@ -72,8 +77,8 @@
             <excludes>
               <exclude>Abstract*.java</exclude>
             </excludes>
-            <systemPropertyVariables>
-              <org.slf4j.simpleLogger.defaultLogLevel>off</org.slf4j.simpleLogger.defaultLogLevel>
+            <systemPropertyVariables combine.children="append">
+              <org.slf4j.simpleLogger.defaultLogLevel>${ut.slf4j.defaultLogLevel}</org.slf4j.simpleLogger.defaultLogLevel>
             </systemPropertyVariables>
           </configuration>
         </plugin>
@@ -81,20 +86,21 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-failsafe-plugin</artifactId>
           <version>${maven-failsafe.version}</version>
+          <dependencies>
+            <dependency>
+              <groupId>org.junit.platform</groupId>
+              <artifactId>junit-platform-surefire-provider</artifactId>
+              <version>${junit-platform.version}</version>
+            </dependency>
+          </dependencies>
           <configuration>
-            <systemPropertyVariables>
-              <org.slf4j.simpleLogger.defaultLogLevel>off</org.slf4j.simpleLogger.defaultLogLevel>
+            <excludes>
+              <exclude>Abstract*.java</exclude>
+            </excludes>
+            <systemPropertyVariables combine.children="append">
+              <org.slf4j.simpleLogger.defaultLogLevel>${it.slf4j.defaultLogLevel}</org.slf4j.simpleLogger.defaultLogLevel>
             </systemPropertyVariables>
           </configuration>
-          <executions>
-            <execution>
-              <id>integration-test</id>
-              <goals>
-                <goal>integration-test</goal>
-                <goal>verify</goal>
-              </goals>
-            </execution>
-          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -155,6 +161,25 @@
               <goals>
                 <goal>build</goal>
               </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>build-helper-maven-plugin</artifactId>
+          <version>${build-helper-maven-plugin.version}</version>
+          <executions>
+            <execution>
+              <id>add-test-source</id>
+              <phase>generate-test-sources</phase>
+              <goals>
+                <goal>add-test-source</goal>
+              </goals>
+              <configuration>
+                <sources>
+                  <source>src/integration/java</source>
+                </sources>
+              </configuration>
             </execution>
           </executions>
         </plugin>
@@ -222,7 +247,7 @@
       <id>coverage</id>
       <activation>
         <property>
-          <name>env.COVERAGE</name>
+          <name>env.JENKINS_HOME</name>
         </property>
       </activation>
       <properties>
@@ -269,6 +294,39 @@
               <configuration>
                 <repoToken>${dangernoodle.coveralls.token}</repoToken>
               </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+
+    <profile>
+      <id>integration-tests</id>
+      <activation>
+        <property>
+          <name>env.JENKINS_HOME</name>
+        </property>
+      </activation>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-failsafe-plugin</artifactId>
+              <configuration>
+                <systemPropertyVariables>
+                  <org.slf4j.simpleLogger.defaultLogLevel>warn</org.slf4j.simpleLogger.defaultLogLevel>
+                </systemPropertyVariables>
+              </configuration>
+              <executions>
+                <execution>
+                  <id>integration-test</id>
+                  <goals>
+                    <goal>integration-test</goal>
+                    <goal>verify</goal>
+                  </goals>
+                </execution>
+              </executions>
             </plugin>
           </plugins>
         </pluginManagement>
