@@ -30,7 +30,7 @@
 
     <!-- plugin versions -->
     <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
-    <coveralls-maven-plugin.version>4.2.0</coveralls-maven-plugin.version>
+    <coveralls-maven-plugin.version>4.3.0</coveralls-maven-plugin.version>
     <docker-maven-plugin.version>0.25.2</docker-maven-plugin.version>
     <jacoco-maven-plugin.version>0.7.7.201606060606</jacoco-maven-plugin.version>
     <maven-compiler.version>3.5.1</maven-compiler.version>
@@ -44,7 +44,7 @@
     <maven-surefire.version>2.21.0</maven-surefire.version>
 
     <!-- plugin dependency versions -->
-    <junit-platform.version>1.2.0-M1</junit-platform.version>
+    <junit-platform.version>1.2.0</junit-platform.version>
   </properties>
 
   <build>
@@ -252,6 +252,7 @@
       </activation>
       <properties>
         <jacoco.haltOnFailure>true</jacoco.haltOnFailure>
+        <dangernoodle.coveralls.token>${env.COVERALLS_REPO_TOKEN}</dangernoodle.coveralls.token>
       </properties>
       <build>
         <pluginManagement>
@@ -293,6 +294,7 @@
               <version>${coveralls-maven-plugin.version}</version>
               <configuration>
                 <repoToken>${dangernoodle.coveralls.token}</repoToken>
+                <serviceName>travis-pro</serviceName>
               </configuration>
             </plugin>
           </plugins>
