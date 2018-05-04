@@ -199,6 +199,13 @@
     <url>https://github.com/dangernoodle-io/dangernoodle-io-build-pom/issues</url>
   </issueManagement>
 
+  <repositories>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
+
   <profiles>
     <profile>
       <id>attach-src-docs</id>
