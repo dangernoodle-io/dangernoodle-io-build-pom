@@ -24,6 +24,8 @@
     <project.jar.name>${project.artifactId}-${project.version}.jar</project.jar.name>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+    <logback.defaultLogLevel>off</logback.defaultLogLevel>
+
     <it.slf4j.defaultLogLevel>off</it.slf4j.defaultLogLevel>
     <ut.slf4j.defaultLogLevel>off</ut.slf4j.defaultLogLevel>
 
@@ -77,6 +79,7 @@
               <exclude>Abstract*.java</exclude>
             </excludes>
             <systemPropertyVariables combine.children="append">
+              <default.logback.level>${logback.defaultLogLevel}</default.logback.level>
               <org.slf4j.simpleLogger.defaultLogLevel>${ut.slf4j.defaultLogLevel}</org.slf4j.simpleLogger.defaultLogLevel>
             </systemPropertyVariables>
           </configuration>
@@ -97,6 +100,7 @@
               <exclude>Abstract*.java</exclude>
             </excludes>
             <systemPropertyVariables combine.children="append">
+              <default.logback.level>${logback.defaultLogLevel}</default.logback.level>
               <org.slf4j.simpleLogger.defaultLogLevel>${it.slf4j.defaultLogLevel}</org.slf4j.simpleLogger.defaultLogLevel>
             </systemPropertyVariables>
           </configuration>
