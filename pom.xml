@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -78,7 +79,7 @@
             <excludes>
               <exclude>Abstract*.java</exclude>
             </excludes>
-            <systemPropertyVariables combine.children="append">
+            <systemPropertyVariables>
               <default.logback.level>${logback.defaultLogLevel}</default.logback.level>
               <org.slf4j.simpleLogger.defaultLogLevel>${ut.slf4j.defaultLogLevel}</org.slf4j.simpleLogger.defaultLogLevel>
             </systemPropertyVariables>
@@ -99,7 +100,7 @@
             <excludes>
               <exclude>Abstract*.java</exclude>
             </excludes>
-            <systemPropertyVariables combine.children="append">
+            <systemPropertyVariables>
               <default.logback.level>${logback.defaultLogLevel}</default.logback.level>
               <org.slf4j.simpleLogger.defaultLogLevel>${it.slf4j.defaultLogLevel}</org.slf4j.simpleLogger.defaultLogLevel>
             </systemPropertyVariables>
@@ -325,11 +326,6 @@
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-failsafe-plugin</artifactId>
-              <configuration>
-                <systemPropertyVariables>
-                  <org.slf4j.simpleLogger.defaultLogLevel>warn</org.slf4j.simpleLogger.defaultLogLevel>
-                </systemPropertyVariables>
-              </configuration>
               <executions>
                 <execution>
                   <id>integration-test</id>
