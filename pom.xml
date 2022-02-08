@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -19,7 +20,7 @@
   <description>parent pom for dangernoodle.io builds</description>
 
   <properties>
-    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
 
@@ -31,6 +32,9 @@
 
     <it.slf4j.defaultLogLevel>off</it.slf4j.defaultLogLevel>
     <ut.slf4j.defaultLogLevel>off</ut.slf4j.defaultLogLevel>
+
+    <!-- plugin dep versions -->
+    <jaxb-api.version>2.3.1</jaxb-api.version>
 
     <!-- plugin versions -->
     <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
@@ -290,6 +294,13 @@
                 <repoToken>${dangernoodle.coveralls.token}</repoToken>
                 <serviceName>travis-pro</serviceName>
               </configuration>
+              <dependencies>
+                <dependency>
+                  <groupId>javax.xml.bind</groupId>
+                  <artifactId>jaxb-api</artifactId>
+                  <version>${jaxb-api.version}</version>
+                </dependency>
+              </dependencies>
             </plugin>
           </plugins>
         </pluginManagement>
