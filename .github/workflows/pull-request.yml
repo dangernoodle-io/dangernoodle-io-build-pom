@@ -1,0 +1,16 @@
+# pull-request.yml
+
+name: dangernoodle-io-build-pom
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Maven Action
+        uses: s4u/setup-maven-action@v1.7.0
+        with:
+          java-version: 17
+          maven-version: 3.9.0
+      - run: mvn -V -B verify
