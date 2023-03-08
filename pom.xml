@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.dangernoodle</groupId>
     <artifactId>dangernoodle-io-org-pom</artifactId>
-    <version>11</version>
+    <version>12</version>
     <relativePath />
   </parent>
 
@@ -19,7 +19,7 @@
   <description>parent pom for dangernoodle.io builds</description>
 
   <properties>
-    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
     <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
 
@@ -36,19 +36,19 @@
     <jaxb-api.version>2.3.1</jaxb-api.version>
 
     <!-- plugin versions -->
-    <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
+    <build-helper-maven-plugin.version>3.3.0</build-helper-maven-plugin.version>
     <coveralls-maven-plugin.version>4.3.0</coveralls-maven-plugin.version>
-    <docker-maven-plugin.version>0.21.0</docker-maven-plugin.version>
-    <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
-    <maven-compiler.version>3.8.1</maven-compiler.version>
+    <docker-maven-plugin.version>0.41.0</docker-maven-plugin.version>
+    <jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
+    <maven-compiler.version>3.10.1</maven-compiler.version>
     <maven-failsafe.version>${maven-surefire.version}</maven-failsafe.version>
-    <maven-jar.version>3.2.0</maven-jar.version>
-    <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
-    <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
-    <maven-scm-publish-plugin.version>3.0.0</maven-scm-publish-plugin.version>
-    <maven-shade-plugin.version>3.2.1</maven-shade-plugin.version>
-    <maven-source.version>3.2.0</maven-source.version>
-    <maven-surefire.version>3.0.0-M3</maven-surefire.version>
+    <maven-jar.version>3.3.0</maven-jar.version>
+    <maven-javadoc-plugin.version>3.4.1</maven-javadoc-plugin.version>
+    <maven-resources-plugin.version>3.3.0</maven-resources-plugin.version>
+    <maven-scm-publish-plugin.version>3.1.0</maven-scm-publish-plugin.version>
+    <maven-shade-plugin.version>3.4.1</maven-shade-plugin.version>
+    <maven-source.version>3.2.1</maven-source.version>
+    <maven-surefire.version>3.0.0-M8</maven-surefire.version>
   </properties>
 
   <build>
@@ -115,7 +115,7 @@
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>${maven-javadoc-plugin.version}</version>
           <configuration>
-            <additionalparam>-Xdoclint:none</additionalparam>
+            <additionalJOption>-Xdoclint:none</additionalJOption>
             <nohelp>true</nohelp>
             <header>${javadoc.project.artifactId} - ${project.version}</header>
             <footer>${javadoc.project.artifactId} - ${project.version}</footer>
@@ -188,13 +188,6 @@
     <system>GitHub</system>
     <url>https://github.com/dangernoodle-io/dangernoodle-io-build-pom/issues</url>
   </issueManagement>
-
-  <repositories>
-    <repository>
-      <id>jitpack.io</id>
-      <url>https://jitpack.io</url>
-    </repository>
-  </repositories>
 
   <profiles>
     <profile>
