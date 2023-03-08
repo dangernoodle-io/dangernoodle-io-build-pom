@@ -2,3 +2,5 @@
 .settings
 .README.md.html
 target
+.idea
+.DS_Store
