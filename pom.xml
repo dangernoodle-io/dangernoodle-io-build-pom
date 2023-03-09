@@ -11,7 +11,7 @@
   </parent>
 
   <artifactId>dangernoodle-io-build-pom</artifactId>
-  <version>14-SNAPSHOT</version>
+  <version>14</version>
   <packaging>pom</packaging>
 
   <name>${project.artifactId}</name>
@@ -191,7 +191,7 @@
     <connection>scm:git:git@github.com:dangernoodle-io/dangernoodle-io-build-pom.git</connection>
     <developerConnection>scm:git:git@github.com:dangernoodle-io/dangernoodle-io-build-pom.git</developerConnection>
     <url>https://github.com/dangernoodle-io/dangernoodle-io-build-pom</url>
-    <tag>HEAD</tag>
+    <tag>dangernoodle-io-build-pom-14</tag>
   </scm>
 
   <issueManagement>
