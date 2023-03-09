@@ -228,6 +228,11 @@
                 </execution>
               </executions>
             </plugin>
+            <plugin>
+              <groupId>org.eluder.coveralls</groupId>
+              <artifactId>coveralls-maven-plugin</artifactId>
+              <version>${coveralls-maven-plugin.version}</version>
+            </plugin>
           </plugins>
         </pluginManagement>
       </build>
@@ -242,7 +247,6 @@
       </activation>
       <properties>
         <jacoco.haltOnFailure>true</jacoco.haltOnFailure>
-        <dangernoodle.coveralls.token>${env.COVERALLS_REPO_TOKEN}</dangernoodle.coveralls.token>
       </properties>
       <build>
         <pluginManagement>
@@ -278,13 +282,29 @@
                 </execution>
               </executions>
             </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+
+    <profile>
+      <id>coveralls</id>
+      <activation>
+        <property>
+          <name>env.JENKINS_HOME</name>
+        </property>
+      </activation>
+      <properties>
+        <dangernoodle.coveralls.token>${env.COVERALLS_REPO_TOKEN}</dangernoodle.coveralls.token>
+      </properties>
+      <build>
+        <pluginManagement>
+          <plugins>
             <plugin>
               <groupId>org.eluder.coveralls</groupId>
               <artifactId>coveralls-maven-plugin</artifactId>
-              <version>${coveralls-maven-plugin.version}</version>
               <configuration>
                 <repoToken>${dangernoodle.coveralls.token}</repoToken>
-                <serviceName>travis-pro</serviceName>
               </configuration>
               <dependencies>
                 <dependency>
@@ -293,6 +313,15 @@
                   <version>${jaxb-api.version}</version>
                 </dependency>
               </dependencies>
+              <executions>
+                <execution>
+                  <id>coveralls</id>
+                  <phase>verify</phase>
+                  <goals>
+                    <goal>report</goal>
+                  </goals>
+                </execution>
+              </executions>
             </plugin>
           </plugins>
         </pluginManagement>
