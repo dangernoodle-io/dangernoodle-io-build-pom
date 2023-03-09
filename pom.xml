@@ -118,7 +118,7 @@
             <additionalJOption>-Xdoclint:none</additionalJOption>
             <nohelp>true</nohelp>
             <header>${javadoc.project.artifactId} - ${project.version}</header>
-            <footer>${javadoc.project.artifactId} - ${project.version}</footer>
+            <bottom>${javadoc.project.artifactId} - ${project.version}</bottom>
             <doctitle>${javadoc.project.artifactId} - ${project.version}</doctitle>
             <windowtitle>${javadoc.project.artifactId} - ${project.version}</windowtitle>
           </configuration>
