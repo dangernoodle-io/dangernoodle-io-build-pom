@@ -1,6 +1,8 @@
 # dangernoodle-io-build-pom
 
-<img src="https://img.shields.io/maven-central/v/io.dangernoodle/dangernoodle-io-build-pom.svg">
+[![maven-central](https://img.shields.io/maven-central/v/io.dangernoodle/dangernoodle-io-build-pom.svg)](https://img.shields.io/maven-central/v/io.dangernoodle/dangernoodle-io-build-pom.svg)
+[![maven-build](https://github.com/dangernoodle-io/dangernoodle-io-build-pom/actions/workflows/maven-build.yml/badge.svg)](https://github.com/dangernoodle-io/dangernoodle-io-build-pom/actions/workflows/maven-build.yml)
+[![maven-release](https://github.com/dangernoodle-io/dangernoodle-io-build-pom/actions/workflows/maven-release.yml/badge.svg)](https://github.com/dangernoodle-io/dangernoodle-io-build-pom/actions/workflows/maven-release.yml)
 
 dangernoodle.io organization build pom
 
@@ -8,7 +10,7 @@ dangernoodle.io organization build pom
   <parent>
     <groupId>io.dangernoodle</groupId>
     <artifactId>dangernoodle-io-build-pom</artifactId>
-    <version>LATEST</version>
+    <version>X.Y.Z</version>
     <relativePath />
   </parent>
 ```
