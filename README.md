@@ -15,3 +15,21 @@ dangernoodle.io organization build pom
   </parent>
 ```
 
+### Code Coverage
+
+Add the following to the downstream maven `pom.xml`
+
+```xml
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>com.github.hazendaz.maven</groupId>
+        <artifactId>coveralls-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+```
