@@ -37,7 +37,7 @@
 
     <!-- plugin versions -->
     <build-helper-maven-plugin.version>3.6.0</build-helper-maven-plugin.version>
-    <coveralls-maven-plugin.version>4.5.0-M2</coveralls-maven-plugin.version>
+    <coveralls-maven-plugin.version>4.5.0-M5</coveralls-maven-plugin.version>
     <docker-maven-plugin.version>0.45.0</docker-maven-plugin.version>
     <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
     <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
