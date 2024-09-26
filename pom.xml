@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.dangernoodle</groupId>
     <artifactId>dangernoodle-io-org-pom</artifactId>
-    <version>12.0.3</version>
+    <version>12.1.0</version>
     <relativePath />
   </parent>
 
