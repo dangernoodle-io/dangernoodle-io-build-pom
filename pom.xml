@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -7,11 +9,10 @@
     <groupId>io.dangernoodle</groupId>
     <artifactId>dangernoodle-io-org-pom</artifactId>
     <version>12.1.0</version>
-    <relativePath />
   </parent>
 
   <artifactId>dangernoodle-io-build-pom</artifactId>
-  <version>14.2.1-SNAPSHOT</version>
+  <version>14.3.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>${project.artifactId}</name>
@@ -96,14 +97,6 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
           <version>${maven-jar-plugin.version}</version>
-          <executions>
-            <execution>
-              <id>test-jar</id>
-              <goals>
-                <goal>test-jar</goal>
-              </goals>
-            </execution>
-          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -117,10 +110,6 @@
           <configuration>
             <additionalJOption>-Xdoclint:none</additionalJOption>
             <nohelp>true</nohelp>
-            <header>${javadoc.project.artifactId} - ${project.version}</header>
-            <bottom>${javadoc.project.artifactId} - ${project.version}</bottom>
-            <doctitle>${javadoc.project.artifactId} - ${project.version}</doctitle>
-            <windowtitle>${javadoc.project.artifactId} - ${project.version}</windowtitle>
           </configuration>
         </plugin>
         <plugin>
@@ -219,7 +208,6 @@
                   <id>attach-sources</id>
                   <goals>
                     <goal>jar-no-fork</goal>
-                    <goal>test-jar-no-fork</goal>
                   </goals>
                 </execution>
               </executions>
@@ -233,9 +221,6 @@
                   <goals>
                     <goal>jar</goal>
                   </goals>
-                  <configuration>
-                    <outputDirectory>${project.reporting.outputDirectory}/apidocs</outputDirectory>
-                  </configuration>
                 </execution>
               </executions>
             </plugin>
@@ -363,45 +348,36 @@
       </build>
     </profile>
 
+    <!--
+      disabled until better testing can be performed. gpg commit signing fails locally
+      b/c multiple signing keys are in use and need to be explicitly configured
+
+      'scm.connection' doesn't work in reactor projects and needs to be explicitly defined
+
+      'doctitle' also needs to be addressed for reactor projects that will require an
+      aggregation project
+    -->
+    <!--
     <profile>
       <id>release</id>
+      <properties>
+        <javadoc.site.scm>${scm.connection}</javadoc.site.scm>
+      </properties>
       <build>
         <pluginManagement>
           <plugins>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-resources-plugin</artifactId>
-              <executions>
-                <execution>
-                  <id>site-resources</id>
-                  <!-- phase: package -->
-                  <phase>none</phase>
-                  <goals>
-                    <goal>copy-resources</goal>
-                  </goals>
-                  <configuration>
-                    <outputDirectory>${project.reporting.outputDirectory}</outputDirectory>
-                    <resources>
-                      <resource>
-                        <directory>src/main/site</directory>
-                      </resource>
-                    </resources>
-                  </configuration>
-                </execution>
-              </executions>
-            </plugin>
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-javadoc-plugin</artifactId>
               <executions>
                 <execution>
                   <id>site-javadoc</id>
-                  <!-- phase: package -->
                   <phase>none</phase>
                   <goals>
-                    <goal>javadoc-no-fork</goal>
+                    <goal>aggregate-no-fork</goal>
                   </goals>
                   <configuration>
+                    <doctitle>${project.parent.artifactId} - ${project.version} API</doctitle>
                     <includeDependencySources>true</includeDependencySources>
                   </configuration>
                 </execution>
@@ -413,15 +389,14 @@
               <version>${maven-scm-publish-plugin.version}</version>
               <configuration>
                 <checkinComment>- publishing javadoc for ${project.version}</checkinComment>
-                <content>${project.reporting.outputDirectory}</content>
+                <content>${project.build.directory}/reports/apidocs</content>
                 <pubScmUrl>${javadoc.site.scm}</pubScmUrl>
                 <scmBranch>gh-pages</scmBranch>
-                <tryUpdate>true</tryUpdate>
+                <username>git</username>
               </configuration>
               <executions>
                 <execution>
                   <id>publish-javadoc</id>
-                  <!-- phase: deploy -->
                   <phase>none</phase>
                   <goals>
                     <goal>publish-scm</goal>
@@ -433,6 +408,7 @@
         </pluginManagement>
       </build>
     </profile>
+    -->
   </profiles>
 
 </project>
