@@ -15,21 +15,57 @@ dangernoodle.io organization build pom
   </parent>
 ```
 
-### Code Coverage
+### Build Plugins
 
-Add the following to the downstream maven `pom.xml`
+Add the following to the downstream maven `pom.xml`. Activation occurs alongside the associated profile.
+
+##### Source and Javadocs
 
 ```xml
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>com.github.hazendaz.maven</groupId>
-        <artifactId>coveralls-maven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-javadoc-plugin</artifactId>
+    </plugin>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-source-plugin</artifactId>
+    </plugin>
+  </plugins>
+</build>
+```
+
+#### Code Coverage
+
+```xml
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.jacoco</groupId>
+      <artifactId>jacoco-maven-plugin</artifactId>
+    </plugin>
+    <plugin>
+      <groupId>com.github.hazendaz.maven</groupId>
+      <artifactId>coveralls-maven-plugin</artifactId>
+    </plugin>
+  </plugins>
+</build>
+```
+
+#### Integration Tests
+
+```xml
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>build-helper-maven-plugin</artifactId>
+    </plugin>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-failsafe-plugin</artifactId>
+    </plugin>
+  </plugins>
+</build>
 ```
