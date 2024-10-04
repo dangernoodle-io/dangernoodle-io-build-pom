@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -10,7 +12,7 @@
   </parent>
 
   <artifactId>dangernoodle-io-build-pom</artifactId>
-  <version>14.3.1-SNAPSHOT</version>
+  <version>14.4.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>${project.artifactId}</name>
@@ -65,17 +67,14 @@
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>${maven-surefire-plugin.version}</version>
-          <configuration>
-            <excludes>
-              <exclude>Abstract*.java</exclude>
-            </excludes>
-            <systemPropertyVariables>
-              <default.logback.level>${logback.defaultLogLevel}</default.logback.level>
-              <org.slf4j.simpleLogger.defaultLogLevel>${ut.slf4j.defaultLogLevel}</org.slf4j.simpleLogger.defaultLogLevel>
-            </systemPropertyVariables>
-          </configuration>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <executions>
+            <execution>
+              <goals>
+                <goal>properties</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -128,6 +127,21 @@
           </executions>
         </plugin>
         <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${maven-surefire-plugin.version}</version>
+          <configuration>
+            <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar}</argLine>
+            <excludes>
+              <exclude>Abstract*.java</exclude>
+            </excludes>
+            <systemPropertyVariables>
+              <default.logback.level>${logback.defaultLogLevel}</default.logback.level>
+              <org.slf4j.simpleLogger.defaultLogLevel>${ut.slf4j.defaultLogLevel}</org.slf4j.simpleLogger.defaultLogLevel>
+            </systemPropertyVariables>
+          </configuration>
+        </plugin>
+        <plugin>
           <groupId>com.github.hazendaz.maven</groupId>
           <artifactId>coveralls-maven-plugin</artifactId>
           <version>${coveralls-maven-plugin.version}</version>
@@ -136,6 +150,9 @@
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
           <version>${jacoco-maven-plugin.version}</version>
+          <configuration>
+            <haltOnFailure>true</haltOnFailure>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>io.fabric8</groupId>
@@ -235,9 +252,6 @@
           <value>true</value>
         </property>
       </activation>
-      <properties>
-        <jacoco.haltOnFailure>true</jacoco.haltOnFailure>
-      </properties>
       <build>
         <pluginManagement>
           <plugins>
