@@ -7,12 +7,13 @@
 dangernoodle.io organization build pom
 
 ```xml
-  <parent>
-    <groupId>io.dangernoodle</groupId>
-    <artifactId>dangernoodle-io-build-pom</artifactId>
-    <version>X.Y.Z</version>
-    <relativePath />
-  </parent>
+
+<parent>
+  <groupId>io.dangernoodle</groupId>
+  <artifactId>dangernoodle-io-build-pom</artifactId>
+  <version>X.Y.Z</version>
+  <relativePath/>
+</parent>
 ```
 
 ### Build Plugins
@@ -22,6 +23,7 @@ Add the following to the downstream maven `pom.xml`. Activation occurs alongside
 ##### Source and Javadocs
 
 ```xml
+
 <build>
   <plugins>
     <plugin>
@@ -36,9 +38,27 @@ Add the following to the downstream maven `pom.xml`. Activation occurs alongside
 </build>
 ```
 
+#### Surefire Tests
+
+Mockito now requires the use of a java agent for instrumentation. Use the `maven-dependency-plugin` to
+grab it's jar location which is automatically added to the `surefire` command line.
+
+```xml
+
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-dependency-plugin</artifactId>
+    </plugin>
+  </plugins>
+</build>
+```
+
 #### Code Coverage
 
 ```xml
+
 <build>
   <plugins>
     <plugin>
@@ -56,6 +76,7 @@ Add the following to the downstream maven `pom.xml`. Activation occurs alongside
 #### Integration Tests
 
 ```xml
+
 <build>
   <plugins>
     <plugin>
