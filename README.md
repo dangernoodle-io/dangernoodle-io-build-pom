@@ -40,8 +40,8 @@ Add the following to the downstream maven `pom.xml`. Activation occurs alongside
 
 #### Surefire Tests
 
-Mockito now requires the use of a java agent for instrumentation. Use the `maven-dependency-plugin` to
-grab it's jar location which is automatically added to the `surefire` command line.
+Mockito, Byte Buddy and others need to be explicitly added as a java agent for instrumentation. Use
+the `maven-dependency-plugin` to grab it's jar location and add it to the `argLine`.
 
 ```xml
 
@@ -50,6 +50,15 @@ grab it's jar location which is automatically added to the `surefire` command li
     <plugin>
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-dependency-plugin</artifactId>
+    </plugin>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-surefire-plugin</artifactId>
+      <configuration>
+        <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar}
+          -javaagent:${net.bytebuddy:byte-buddy-agent:jar}
+        </argLine>
+      </configuration>
     </plugin>
   </plugins>
 </build>
