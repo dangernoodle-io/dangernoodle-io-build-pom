@@ -306,13 +306,6 @@
               <configuration>
                 <repoToken>${dangernoodle.coveralls.token}</repoToken>
               </configuration>
-              <dependencies>
-                <dependency>
-                  <groupId>jakarta.xml.bind</groupId>
-                  <artifactId>jakarta.xml.bind-api</artifactId>
-                  <version>${jaxb-api.version}</version>
-                </dependency>
-              </dependencies>
               <executions>
                 <execution>
                   <id>coveralls</id>
